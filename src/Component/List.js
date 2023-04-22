@@ -1,8 +1,8 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 // Single List Item
-const SingleListItem = ({ index, isSelected, onClickHandler, text }) => {
+const SingleListItem = memo(({ index, isSelected, onClickHandler, text }) => {
   return (
     <li
       style={{ backgroundColor: isSelected ? 'green' : 'red'}}
@@ -11,7 +11,7 @@ const SingleListItem = ({ index, isSelected, onClickHandler, text }) => {
       {text}
     </li>
   );
-};
+});
 
 SingleListItem.propTypes = {
   index: PropTypes.number.isRequired,
@@ -28,16 +28,16 @@ const List = ({ items }) => {
     setSelectedIndex(null);
   }, [items]);
 
-  const handleClick = (index) => {
+  const handleClick = useCallback((index) => {
     setSelectedIndex(index);
-  };
+  }, []);
 
   return (
     <ul style={{ textAlign: 'left' }}>
       {items.map((item, index) => (
         <SingleListItem
           key={index}
-          onClickHandler={() => handleClick(index)}
+          onClickHandler={handleClick}
           text={item.text}
           index={index}
           isSelected={selectedIndex === index}
