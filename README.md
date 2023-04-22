@@ -136,39 +136,8 @@ export default List;
 After analysing the above fixed code I did following optimizations:
 
 - ***Use object destructuring for the props passed to WrappedSingleListItem***:
-Instead of passing index, isSelected, onClickHandler, and text as individual props, we can use object destructuring to make the code more concise and easier to read:
-    
-    ```
-    const WrappedSingleListItem = ({
-      index,
-      isSelected,
-      onClickHandler,
-      text,
-    }) => {
-      return (
-        <li
-          style={{ backgroundColor: isSelected ? 'green' : 'red'}}
-          onClick={() => onClickHandler(index)}
-        >
-          {text}
-        </li>
-      );
-    };
-    ```
-    can be written as:
-    
-    ```
-    const WrappedSingleListItem = ({ index, isSelected, onClickHandler, text }) => {
-      return (
-        <li
-          style={{ backgroundColor: isSelected ? 'green' : 'red'}}
-          onClick={() => onClickHandler(index)}
-        >
-          {text}
-        </li>
-      );
-    };
-    ```
+Instead of passing index, isSelected, onClickHandler, and text as individual props, we can use object destructuring to make the code more concise and easier to read
+
 - ***Use === instead of == for strict equality:***
 When checking if selectedIndex is equal to index in WrappedListComponent, we can use === instead of == for strict equality checking.
 
@@ -200,8 +169,15 @@ When rendering an array of components in React, it's important to add a key prop
       isSelected={selectedIndex === index}
     />
     ```
+    
+- ***Use React.memo() on SingleListItem component:***
+    As SingleListItem is a stateless component, it can benefit from memoization to prevent unnecessary re-renders. You can use the React.memo() higher-order component to memoize it.
+ 
 - ***Remove unnecessary memo wrapping:***
     Since SingleListItem is already memoized with memo, there is no need to wrap it again in WrappedListComponent.
+
+- ***Use useCallback() on handleClick:***
+    Since handleClick is passed as a prop to SingleListItem, it can also benefit from memoization. You can use the useCallback() hook to memoize it.
 
 Here is the optimized code:
 
