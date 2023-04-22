@@ -306,5 +306,5 @@ A list of items passed as **prop** to component is rendered on the screen having
 
 # Author
 Name - Vishal Kumar
-Email - vishal1924s@gmail.com
+Email - vk30official@gmail.com
 
