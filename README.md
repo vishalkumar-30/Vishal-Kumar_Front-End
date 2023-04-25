@@ -282,8 +282,6 @@ A list of items passed as **prop** to component is rendered on the screen having
 # Author
 Name - Vishal Kumar
 
-Reg. No. - 9140057570
-
 Mobile - 9140057570
 
 Email - vk30official@gmail.com
